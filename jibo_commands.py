@@ -117,91 +117,91 @@ class jibo_commands:
         rospy.loginfo(msg)
 
     def send_robot_audio_motion_cmd(self, a, m):
-	"""
-	send LED ring color Command to Jibo
-	"""
+        """
+        send LED ring color Command to Jibo
+        """
 
-	msg = JiboAction()
-	# add header
-	msg.header = Header()
-	msg.header.stamp = rospy.Time.now()
+        msg = JiboAction()
+        # add header
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
 
-	msg.do_sound_playback = True
-	msg.do_motion = True
+        msg.do_sound_playback = True
+        msg.do_motion = True
 
-	msg.audio_filename = a
-	msg.motion = m
+        msg.audio_filename = a
+        msg.motion = m
 
-	self.robot_commander.publish(msg)
-	rospy.loginfo(msg)
+        self.robot_commander.publish(msg)
+        rospy.loginfo(msg)
 
 
     def send_robot_led_cmd(self, r, g, b):
-	"""
-	send LED ring color Command to Jibo
-	"""
+        """
+        send LED ring color Command to Jibo
+        """
 
-	msg = JiboAction()
-	# add header
-	msg.header = Header()
-	msg.header.stamp = rospy.Time.now()
+        msg = JiboAction()
+        # add header
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
 
-	msg.do_led = True
+        msg.do_led = True
 
-	color = JiboVec3(r, g, b)
-	msg.led_color = color
+        color = JiboVec3(r, g, b)
+        msg.led_color = color
 
-	self.robot_commander.publish(msg)
-	rospy.loginfo(msg)
+        self.robot_commander.publish(msg)
+        rospy.loginfo(msg)
 	
     def send_robot_volume_cmd(self, v):
-	"""
-	send LED ring color Command to Jibo
-	"""
+        """
+        send LED ring color Command to Jibo
+        """
 
-	msg = JiboAction()
-	# add header
-	msg.header = Header()
-	msg.header.stamp = rospy.Time.now()
+        msg = JiboAction()
+        # add header
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
 
-	msg.do_volume = True
+        msg.do_volume = True
 
-	msg.volume = v
+        msg.volume = v
 
-	self.robot_commander.publish(msg)
-	rospy.loginfo(msg)
+        self.robot_commander.publish(msg)
+        rospy.loginfo(msg)
 
     def send_robot_asr_cmd(self, cmd, heyjibo=False, continuous=False, rule=""):
 
-	"""
-	send ASR Command to Jibo
-	"""
+        """
+        send ASR Command to Jibo
+        """
 
-	msg = JiboAsrCommand()
-	# add header
-	msg.header = Header()
-	msg.header.stamp = rospy.Time.now()
+        msg = JiboAsrCommand()
+        # add header
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
 
-	msg.heyjibo = heyjibo
-	msg.continuous = continuous
+        msg.heyjibo = heyjibo
+        msg.continuous = continuous
 
-	msg.rule = rule
-	msg.command = cmd
+        msg.rule = rule
+        msg.command = cmd
 
-	self.robot_asr_commander.publish(msg)
-	rospy.loginfo(msg)
+        self.robot_asr_commander.publish(msg)
+        rospy.loginfo(msg)
 
     def send_robot_anim_transition_cmd(self, tran):
 
-	msg = JiboAction()
-	# add header
-	msg.header = Header()
-	msg.header.stamp = rospy.Time.now()
+        msg = JiboAction()
+        # add header
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
 
-	msg.do_anim_transition = True
-	msg.anim_transition = tran
-	self.robot_commander.publish(msg)
-	rospy.loginfo(msg)
+        msg.do_anim_transition = True
+        msg.anim_transition = tran
+        self.robot_commander.publish(msg)
+        rospy.loginfo(msg)
 
 # def main():
 
