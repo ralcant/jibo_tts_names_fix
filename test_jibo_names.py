@@ -33,7 +33,19 @@ def main():
           "School Code": 1
         },
         """
-        folder = student_info["Reading Group"].replace(" ","").upper()
+        read_group = student_info["Reading Group"].replace(" ","").upper()
+        name = student_info["F_Name"].replace(" ", "")
+        if student_info["Audio"] in {"y", "Y"}:
+            if not os.path.exists("students_correct/{}/{}3.mp3".format(read_group,name)):
+                print("couldnt find for {} from {}".format(name, read_group))
+                #raise ValueError
+        else:
+            if os.path.exists("students_correct/{}/{}3.mp3".format(read_group,name)):
+                print("Shouldnt happen D: {} from {}".format(name, read_group))
+            
+
+        """
+        if not os.path.exists("students\")
         playsound("students_correct/{}/{}".format("GASOUTHERN", "Andre3.mp3")) 
         break
         if not os.path.exists("students_correct/{}".format(folder)): 
@@ -42,7 +54,7 @@ def main():
         else:
             pass
             #print("FOUND for {}".format(student_info["Reading Group"]))
-
+        """
     print(len(all_students))
     # while True:
 
