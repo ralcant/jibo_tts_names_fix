@@ -4,6 +4,7 @@ import json
 import glob 
 import codecs
 import os
+from playsound import playsound
 def main():
     # """
     # Will play the audio from students_correct file and will make Jibo say it
@@ -33,7 +34,9 @@ def main():
         },
         """
         folder = student_info["Reading Group"].replace(" ","").upper()
-        if not os.path.exists("students_correct/{}".format(folder)):
+        playsound("students_correct/{}/{}".format("GASOUTHERN", "Andre3.mp3")) 
+        break
+        if not os.path.exists("students_correct/{}".format(folder)): 
             print("NO found for {}".format(student_info["Reading Group"]))
             pass
         else:
