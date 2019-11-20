@@ -13,7 +13,7 @@ def main():
     # jsons = sorted(jsons)
     #all_students = raw_decode('all_studfents.json')
     #input_file = os.path/basename(os.path.dirname(all_students.json))
-    with codecs.open('data.json', encoding = 'utf-8') as f:
+    with codecs.open('all_students_info.json', encoding = 'utf-8') as f:
         all_students = json.load(f)#["students"]  #Import the json file
     for student_info in all_students:
         """
@@ -76,7 +76,7 @@ def main():
         if next_student in {"n", "N"}:
             break 
 
-    outf = "data.json" #just rewrite the file 
+    outf = "all_students_info.json" #just rewrite the file 
     with codecs.open(outf, encoding="utf-8", mode="w") as out_file:
         #new_data = 
         json.dump(all_students, out_file, indent= 4, separators=(",", ": "))
