@@ -6,9 +6,6 @@ import codecs
 import os
 from playsound import playsound
 def main():
-    # """
-    # Will play the audio from students_correct file and will make Jibo say it
-    # """
     jibo = jibo_commands()
     jibo.start_robot_publisher()
     # parsed_json = json.loads()
@@ -17,7 +14,7 @@ def main():
     #all_students = raw_decode('all_studfents.json')
     #input_file = os.path/basename(os.path.dirname(all_students.json))
     with codecs.open('data.json', encoding = 'utf-8') as f:
-        all_students = json.load(f)["students"]  #Import the json file
+        all_students = json.load(f)#["students"]  #Import the json file
     for student_info in all_students:
         """
         student_info has the following format:
@@ -35,30 +32,55 @@ def main():
         """
         read_group = student_info["Reading Group"].replace(" ","").upper()
         name = student_info["F_Name"].replace(" ", "")
-        if student_info["Audio"] in {"y", "Y"}:
-            if not os.path.exists("students_correct/{}/{}3.mp3".format(read_group,name)):
-                print("couldnt find for {} from {}".format(name, read_group))
-                #raise ValueError
+        if student_info["Audio"] in {"y", "Y"}:  #if there is an udio
+            sound_path = "audios/{}/{}3.mp3".format(read_group,name)
+            if not os.path.exists(sound_path):  #This shouldnt happen
+                print("couldnt find audio for {} from {}".format(name, read_group))
+            else:
+                #playsound(sound_path)
+                print("\nChild name: {}".format(name))
+                print(" Listen to their pronunciation")
+                playsound(sound_path)
+
+                while True:
+
+                    repeat = raw_input("Repeat? [Y\N]: ")
+
+                    if repeat not in {"y", "Y"}:
+                        break
+                    else:
+                        playsound(sound_path)
+
         else:
-            if os.path.exists("students_correct/{}/{}3.mp3".format(read_group,name)):
-                print("Shouldnt happen D: {} from {}".format(name, read_group))
+            print("Sorry, we don't have an audio for child {}\n".format(name))
+        ########## Now try to repeat the pronunciation of Jibo ###########
+        print("\n Now, listen to how Jibo pronounces it \n")
+        try:
+            new_esml = student_info["esml"]
+            print("This student seem to already have an esml tag: {} \n".format(new_esml))
+        except:
+            new_esml = name
             
+        while True:
+            student_info["esml"] = new_esml            
+            #print("Current name:{}".format(new_esml))            
+            jibo.send_robot_tts_cmd(new_esml)
+            new_esml = raw_input("Enter new esml= ")
+            if len(new_esml) > 0:
+                pass
+            else:
+                break    
+        print("\nFinal esml tag of {}: {}\n".format(name, student_info["esml"]))
+        next_student = raw_input("Continue with next student? [Y/N]: ")
+        print("\n################\n")
+        if next_student in {"n", "N"}:
+            break 
 
-        """
-        if not os.path.exists("students\")
-        playsound("students_correct/{}/{}".format("GASOUTHERN", "Andre3.mp3")) 
-        break
-        if not os.path.exists("students_correct/{}".format(folder)): 
-            print("NO found for {}".format(student_info["Reading Group"]))
-            pass
-        else:
-            pass
-            #print("FOUND for {}".format(student_info["Reading Group"]))
-        """
-    print(len(all_students))
-    # while True:
+    outf = "data.json" #just rewrite the file 
+    with codecs.open(outf, encoding="utf-8", mode="w") as out_file:
+        #new_data = 
+        json.dump(all_students, out_file, indent= 4, separators=(",", ": "))
+    print("Finished dumnping new data to {}".format(outf))
 
-    #####
-    # pass
 if __name__ == "__main__":
     main()
